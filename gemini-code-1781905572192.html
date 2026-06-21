@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>黒基調・放射状アニメーションボタン</title>
+  <style>
+    /* 背景色（完全な黒へ変更） */
+    body {
+      background-color: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: "Times New Roman", "Yu Mincho", "遊明朝", serif;
+    }
+
+    /* ボタンの基本スタイル（黒基調・重厚） */
+    .noble-button {
+      position: relative;
+      padding: 20px 60px;
+      background-color: #1a1a1a; /* 非常に濃いグレー */
+      color: #ccc;             /* 初期状態は少し落ち着いたグレー */
+      border: 1px solid #333;   /* 濃いグレーの細い枠線 */
+      font-size: 16px;
+      letter-spacing: 0.2em;      /* ゆったりとした文字間隔 */
+      cursor: pointer;
+      overflow: hidden;           /* はみ出た光の波をカット */
+      transition: color 0.6s ease, border-color 0.6s ease;
+      outline: none;
+    }
+
+    /* 放射状に広がる光の層（擬似要素） */
+    .noble-button::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      /* 中心から外側へ薄く変化する放射状グラデーション（薄めのグレー） */
+      background: radial-gradient(circle, rgba(200, 200, 200, 0.2) 0%, rgba(200, 200, 200, 0) 70%);
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      opacity: 0;
+      transition: width 0.8s ease-out, height 0.8s ease-out, opacity 0.8s ease-out;
+      pointer-events: none; /* ボタンのクリックを邪魔しない */
+    }
+
+    /* ホバー時の挙動 */
+    .noble-button:hover {
+      color: #fff;               /* 文字を白へ変化 */
+      border-color: #666;        /* 枠線を少し明るいグレーへ変化 */
+    }
+
+    /* ホバー時に光の波を発散させる */
+    .noble-button:hover::before {
+      width: 400px;              /* ボタンを完全に覆い尽くすサイズまで拡大（少し大きめに設定） */
+      height: 400px;
+      opacity: 1;                /* じわっと不透明度を上げる */
+    }
+
+    /* クリックした瞬間（アクティブ時）の微細な変化 */
+    .noble-button:active {
+      transform: scale(0.99);
+      transition: transform 0.1s;
+    }
+  </style>
+</head>
+<body>
+
+  <button class="noble-button">EXPLORE MORE</button>
+
+</body>
+</html>

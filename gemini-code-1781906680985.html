@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>完全修正版（視認性100%保証）</title>
+  <style>
+    /* 1. ベース設定（全体を確実に黒背景にする） */
+    body {
+      background-color: #000000 !important; /* 強制的に黒背景 */
+      color: #ffffff !important;           /* 強制的に文字を白にする */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 50px;
+      height: 100vh;
+      margin: 0;
+      font-family: "Times New Roman", "Yu Mincho", "遊明朝", serif;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      gap: 20px;
+    }
+
+    /* 2. アニメーションの共通基盤（バグの原因を徹底排除） */
+    .noble-effect {
+      position: relative;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      box-sizing: border-box;
+      
+      font-size: 14px;
+      letter-spacing: 0.2em;
+      text-decoration: none;
+      cursor: pointer;
+      overflow: hidden;
+      transition: color 0.6s ease, border-color 0.6s ease;
+      outline: none;
+    }
+
+    /* 3. タグごとの個別設計（枠線の色と背景色を1つずつ強制指定） */
+    
+    /* ボタン：ダークグレーの背景に、グレーの枠線、明るいグレーの文字 */
+    button.noble-effect {
+      padding: 20px 60px;
+      background-color: #1a1a1a !important;
+      color: #aaaaaa !important;
+      border: 1px solid #333333 !important; 
+    }
+    
+    /* aタグ：背景は透明、枠線は黒（見えない）、明るいグレーの文字 */
+    a.noble-effect {
+      padding: 20px 60px;
+      background-color: transparent !important;
+      color: #aaaaaa !important;
+      border: 1px solid #000000 !important; 
+    }
+    
+    /* liタグ：背景は透明、枠線は黒（見えない）、明るいグレーの文字 */
+    li.noble-effect {
+      padding: 15px 40px;
+      background-color: transparent !important;
+      color: #aaaaaa !important;
+      border: 1px solid #000000 !important; 
+    }
+
+    /* 4. 放射状に広がる光の層（全タグ共通） */
+    .noble-effect::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: radial-gradient(circle, rgba(200, 200, 200, 0.3) 0%, rgba(200, 200, 200, 0) 70%);
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      opacity: 0;
+      transition: width 0.8s ease-out, height 0.8s ease-out, opacity 0.8s ease-out;
+      pointer-events: none;
+    }
+
+    /* 5. ホバー時の挙動（競合を防ぐため極限までシンプルに指定） */
+    
+    /* 全タグ共通：ホバーしたら文字を「純粋な白」にする */
+    .noble-effect:hover {
+      color: #ffffff !important;
+    }
+
+    /* ボタンのみ：ホバー時に枠線を明るくする */
+    button.noble-effect:hover {
+      border-color: #666666 !important;
+    }
+
+    /* aタグとliタグ：ホバー時も枠線は黒を絶対死守（見せない） */
+    a.noble-effect:hover,
+    li.noble-effect:hover {
+      border-color: #000000 !important;
+    }
+
+    /* 光を全方位に発散 */
+    .noble-effect:hover::before {
+      width: 400px;
+      height: 400px;
+      opacity: 1;
+    }
+
+    /* クリック時の変化 */
+    .noble-effect:active {
+      transform: scale(0.99);
+      transition: transform 0.1s;
+    }
+  </style>
+</head>
+<body>
+
+  <div>
+    <p style="color: #666666; text-align: center; font-size: 12px; margin-bottom: 10px;">BUTTON ELEMENT</p>
+    <button class="noble-effect">ENTER SITE</button>
+  </div>
+
+  <div>
+    <p style="color: #666666; text-align: center; font-size: 12px; margin-bottom: 10px;">A ELEMENT (LINK)</p>
+    <a href="#" class="noble-effect">READ MORE</a>
+  </div>
+
+  <div>
+    <p style="color: #666666; text-align: center; font-size: 12px; margin-bottom: 10px;">LI ELEMENT (MENU)</p>
+    <ul>
+      <li class="noble-effect">ABOUT</li>
+      <li class="noble-effect">PROJECTS</li>
+      <li class="noble-effect">CONTACT</li>
+    </ul>
+  </div>
+
+</body>
+</html>
